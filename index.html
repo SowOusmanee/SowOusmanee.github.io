@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ousmane Sow — Portfolio</title>
+<meta name="description" content="Portfolio d'Ousmane Sow, étudiant en DUT Génie Mécanique et Systèmes Industriels — ESP Dakar">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!--
+  Direction artistique : inspirée du DESIGN.md "SpaceX" (VoltAgent/awesome-design-md)
+  — toile noire, typo condensée en capitales, micro-texte espacé, boutons ghost en pilule —
+  croisée avec l'univers du dessin technique (cotations, cartouche, quadrillage).
+-->
+<style>
+:root{
+  --bg:#f5f3ef; --bg-soft:#ebe8e2; --panel:#ffffff;
+  --ink:#141414; --ink-2:#3b3b3f; --mute:#7a776f; --line:#dcd8d0; --line-2:#b9b4aa;
+  --accent:#e8501a; /* orange sécurité industrielle */
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;letter-spacing:.2px;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#fff}
+
+/* ---------- Typo ---------- */
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.eyebrow b{color:var(--accent);font-weight:500}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;font-weight:700;letter-spacing:.02em;line-height:.95}
+h2{font-size:clamp(40px,7vw,80px)}
+h3{font-size:24px;letter-spacing:.04em}
+
+/* ---------- Nav ---------- */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(16px,4vw,48px);transition:background .4s,backdrop-filter .4s}
+nav.solid{background:rgba(245,243,239,.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.12em}
+.logo span{color:var(--accent)}
+.links{display:flex;gap:28px}
+.links a{font-family:var(--display);font-size:14px;letter-spacing:.14em;text-transform:uppercase;position:relative;padding:4px 0;color:var(--ink-2)}
+.links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.links a:hover::after,.links a.on::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;background:none;border:1px solid var(--line-2);color:var(--ink);border-radius:32px;padding:8px 16px;font-family:var(--display);letter-spacing:.14em;cursor:pointer}
+
+/* ---------- Boutons ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);border-radius:32px;padding:16px 26px;font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;position:relative;overflow:hidden;isolation:isolate;transition:color .45s var(--ease)}
+.btn::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .45s var(--ease);z-index:-1}
+.btn:hover{color:var(--bg)}.btn:hover::before{transform:none}
+.btn.alt{border-color:var(--line-2);color:var(--ink-2)}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:flex-end;padding:0 clamp(16px,4vw,48px) 72px}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.grid-bg{position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;mask-image:radial-gradient(ellipse at 70% 45%,#000 10%,transparent 70%);opacity:.9}
+.hero-txt{position:relative;z-index:2;max-width:760px}
+.hero h1{font-size:clamp(52px,9vw,124px);margin:18px 0 22px}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln>span{display:block;transform:translateY(105%);animation:rise 1.1s var(--ease) forwards}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.12s;color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+@keyframes rise{to{transform:none}}
+.hero p{max-width:520px;color:var(--ink-2);margin-bottom:32px;opacity:0;animation:fade 1s .5s forwards}
+.hero .cta{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fade 1s .7s forwards}
+@keyframes fade{to{opacity:1}}
+.hud{position:absolute;z-index:2;right:clamp(16px,4vw,48px);top:96px;font-family:var(--mono);font-size:11px;color:var(--mute);text-align:right;line-height:1.9}
+.hud em{font-style:normal;color:var(--ink-2)}
+.scroll-ind{position:absolute;right:clamp(16px,4vw,48px);bottom:72px;z-index:2;writing-mode:vertical-rl;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--mute);display:flex;align-items:center;gap:12px}
+.scroll-ind::after{content:"";width:1px;height:60px;background:linear-gradient(var(--accent),transparent);animation:drop 2s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- Sections ---------- */
+section{padding:clamp(80px,12vw,160px) clamp(16px,4vw,48px);position:relative}
+.wrap{max-width:1240px;margin:0 auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:64px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:28px}
+.head .num{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* À propos */
+.about{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,96px);align-items:start}
+.about .lead{font-family:var(--display);font-size:clamp(26px,3vw,38px);line-height:1.15;text-transform:uppercase;letter-spacing:.02em}
+.about .lead mark{background:none;color:var(--accent)}
+.about p+p{margin-top:18px;color:var(--ink-2)}
+.cartouche{margin-top:40px;border:1px solid var(--line-2);font-family:var(--mono);font-size:12px}
+.cartouche div{display:grid;grid-template-columns:140px 1fr;border-bottom:1px solid var(--line)}
+.cartouche div:last-child{border:0}
+.cartouche span{padding:12px 14px;color:var(--mute);border-right:1px solid var(--line)}
+.cartouche strong{padding:12px 14px;font-weight:400}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:48px;border:1px solid var(--line)}
+.stat{background:var(--bg);padding:24px}
+.stat b{font-family:var(--display);font-size:56px;line-height:1;display:block}
+.stat small{font-family:var(--mono);font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.12em}
+
+/* Compétences */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
+.tab{background:none;border:1px solid var(--line-2);color:var(--ink-2);border-radius:32px;padding:10px 18px;font-family:var(--display);font-size:14px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:all .35s var(--ease)}
+.tab:hover{border-color:var(--ink)}
+.tab.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 48px}
+.skill{padding:18px 0;border-bottom:1px solid var(--line);opacity:0;transform:translateX(-20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.skill.in{opacity:1;transform:none}
+.skill .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.skill .row span{font-family:var(--display);font-size:20px;text-transform:uppercase;letter-spacing:.06em}
+.skill .row em{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--mute)}
+.gauge{height:2px;background:var(--line);position:relative}
+.gauge i{position:absolute;inset:0 auto 0 0;background:#fff;width:0;transition:width 1.4s var(--ease)}
+.gauge i::after{content:"";position:absolute;right:-1px;top:-4px;width:1px;height:10px;background:var(--accent)}
+.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--line-2);margin-top:6px}
+
+.sk-block+.sk-block{margin-top:88px}
+.sk-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.soft{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;perspective:1000px}
+.sw{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:26px 22px 22px;position:relative;overflow:hidden;cursor:default;
+  opacity:0;transform:rotateX(-70deg) translateY(30px);transform-origin:top;transition:opacity .8s var(--ease),transform .8s var(--ease),box-shadow .4s,border-color .4s}
+.in .sw{opacity:1;transform:none}
+.sw:hover{border-color:var(--ink);box-shadow:0 24px 40px -24px rgba(60,50,30,.35)}
+.sw{user-select:none}
+.sw .mono{width:64px;height:64px;border-radius:50%;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center;margin-bottom:22px;position:relative;transition:border-color .4s,background .4s}
+.sw .mono svg{width:34px;height:34px;transition:transform .7s var(--ease)}
+.sw .mono::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px dashed var(--accent);opacity:0;transition:opacity .4s;animation:sp 8s linear infinite}
+.sw:hover .mono{background:#fff;border-color:var(--line-2)}
+.sw:hover .mono svg{transform:scale(1.18) rotateY(360deg)}
+.sw:hover .mono::after{opacity:1}
+.sw b{font-family:var(--display);font-size:23px;text-transform:uppercase;letter-spacing:.04em;display:block;line-height:1}
+.sw small{font-family:var(--mono);font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.1em;display:block;margin-top:8px}
+.sw .fill{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.sw:hover .fill{transform:scaleX(1)}
+.doms{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;perspective:1200px}
+.dom{user-select:none;position:relative;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;
+  opacity:0;transform:rotateY(-35deg) translateZ(-60px);transition:opacity .8s var(--ease),transform .8s var(--ease),filter .5s,border-color .4s,background .4s}
+.in .dom{opacity:1;transform:none}
+.dom.dim{opacity:.28;filter:grayscale(1);transform:scale(.97)}
+.dom.hit{border-color:var(--accent)}
+.dom em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent);display:flex;justify-content:space-between}
+.dom span{font-family:var(--display);font-weight:600;font-size:22px;text-transform:uppercase;letter-spacing:.04em;line-height:1.05;margin-top:24px;transition:transform .5s var(--ease)}
+.dom p{font-size:13.5px;color:var(--ink-2);max-height:0;opacity:0;overflow:hidden;transition:max-height .5s var(--ease),opacity .4s,margin .5s var(--ease)}
+.dom:hover p{max-height:80px;opacity:1;margin-top:10px}
+.dom::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(232,80,26,.10),transparent 55%);opacity:0;transition:opacity .4s;pointer-events:none}
+.dom:hover::before{opacity:1}
+/* Projets */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;perspective:1400px}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;cursor:pointer;transform-style:preserve-3d;transition:transform .5s var(--ease),border-color .4s,opacity .5s,box-shadow .5s;will-change:transform}
+.card:hover{border-color:var(--line-2);box-shadow:0 40px 70px -30px rgba(60,50,30,.28)}
+.card.hide{display:none}
+.card .vis{aspect-ratio:16/10;position:relative;overflow:hidden;background:#faf9f6;border-bottom:1px solid var(--line)}
+.card .vis img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.card:hover .vis img{transform:scale(1.05)}
+.card .vis svg{width:100%;height:100%;transform:translateZ(40px)}
+.card .body{padding:24px;transform:translateZ(30px)}
+.card .meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--mute);margin-bottom:12px;text-transform:uppercase;letter-spacing:.1em}
+.card .meta b{color:var(--accent);font-weight:500}
+.card p{color:var(--mute);font-size:15px;margin-top:10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.tags span{font-family:var(--mono);font-size:10.5px;padding:4px 10px;border:1px solid var(--line-2);border-radius:32px;color:var(--ink-2)}
+.card .glare{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(232,80,26,.07),transparent 45%);opacity:0;transition:opacity .4s}
+.card:hover .glare{opacity:1}
+.placeholder-note{margin-top:32px;font-family:var(--mono);font-size:12px;color:var(--mute);border:1px dashed var(--line-2);padding:14px 18px;border-radius:4px}
+
+/* Modale */
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;background:rgba(20,20,20,.35);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .4s}
+.modal.open{opacity:1;pointer-events:auto}
+.modal .box{background:var(--bg);border:1px solid var(--line-2);border-radius:8px;width:min(900px,100%);max-height:88vh;overflow:auto;transform:translateY(30px) rotateX(8deg);transition:transform .6s var(--ease)}
+.modal.open .box{transform:none}
+.modal .vis{aspect-ratio:16/8;background:#faf9f6;border-bottom:1px solid var(--line)}
+.modal .vis svg,.modal .vis img{width:100%;height:100%;object-fit:contain;background:#fff}
+.modal .in{padding:clamp(20px,4vw,40px)}
+.modal h3{font-size:clamp(32px,5vw,52px);margin:10px 0 18px}
+.modal .cols{display:grid;grid-template-columns:2fr 1fr;gap:32px;margin-top:24px}
+.modal ul{list-style:none}
+.modal .cartouche{align-self:start}.modal .cartouche div{grid-template-columns:90px 1fr}
+.figs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:28px}
+.figs div{background:var(--panel);padding:18px}
+.figs b{font-family:var(--display);font-size:clamp(22px,3vw,32px);display:block;line-height:1}
+.figs small{font-family:var(--mono);font-size:10.5px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.gal figure{margin:0;cursor:zoom-in;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+.gal img{width:100%;aspect-ratio:4/3;object-fit:contain;display:block;transition:transform .6s var(--ease)}
+.gal figure:hover img{transform:scale(1.06)}
+.gal figcaption{font-family:var(--mono);font-size:10.5px;color:var(--mute);padding:8px 10px;border-top:1px solid var(--line)}
+.lb{position:fixed;inset:0;z-index:150;background:rgba(245,243,239,.96);display:grid;place-items:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .35s;cursor:zoom-out}
+.lb.open{opacity:1;pointer-events:auto}
+.lb img{max-width:100%;max-height:82vh;box-shadow:0 30px 60px -30px rgba(0,0,0,.4);transform:scale(.94);transition:transform .5s var(--ease)}
+.lb.open img{transform:none}
+.lb p{font-family:var(--mono);font-size:12px;color:var(--ink-2);margin-top:14px;text-align:center}
+.lb button{position:absolute;top:50%;background:var(--panel);border:1px solid var(--line-2);border-radius:50%;width:48px;height:48px;font-size:18px;cursor:pointer;color:var(--ink)}
+.lb .prev{left:16px}.lb .next{right:16px}
+.modal li{padding:8px 0;border-bottom:1px solid var(--line);color:var(--ink-2);font-size:15px}
+.modal li::before{content:"→ ";color:var(--accent)}
+.close{position:sticky;top:12px;float:right;margin:12px;background:var(--bg);border:1px solid var(--line-2);color:var(--ink);border-radius:32px;padding:8px 16px;font-family:var(--display);letter-spacing:.14em;cursor:pointer;z-index:2}
+
+/* Parcours */
+.timeline{position:relative;padding-left:40px}
+.timeline::before{content:"";position:absolute;left:7px;top:0;bottom:0;width:1px;background:var(--line)}
+.timeline .prog{position:absolute;left:7px;top:0;width:1px;background:var(--accent);height:0}
+.step{position:relative;padding:0 0 56px}
+.step::before{content:"";position:absolute;left:-38px;top:6px;width:11px;height:11px;border:1px solid var(--ink);background:var(--bg);transform:rotate(45deg)}
+.step .date{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.step h3{margin:8px 0 6px;font-size:30px}
+.step p{color:var(--mute);max-width:620px}
+
+/* Outils (marquee) */
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding:28px 0;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;gap:64px;width:max-content;animation:slide 40s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.track span{font-family:var(--display);font-size:clamp(28px,4vw,48px);text-transform:uppercase;font-weight:600;color:transparent;-webkit-text-stroke:1px var(--line-2);transition:color .3s,-webkit-text-stroke-color .3s;white-space:nowrap}
+.track span:hover{color:var(--accent);-webkit-text-stroke-color:var(--accent)}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* Contact */
+.contact{text-align:center}
+.contact h2{font-size:clamp(48px,10vw,128px)}
+.contact h2 a{display:inline-block;transition:color .4s}
+.contact h2 a:hover{color:var(--accent)}
+.nav-cv{color:var(--accent)!important}
+[data-link].soon{opacity:.45;cursor:not-allowed}.btn.soon{border-style:dashed}
+[data-link].soon::after{content:" — bientôt";font-size:.85em}
+.links [data-link].soon::after{content:""}
+.socials{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:40px}
+footer{border-top:1px solid var(--line);padding:24px clamp(16px,4vw,48px);display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--mute);flex-wrap:wrap;gap:12px}
+
+/* Curseur réticule */
+.reticle{position:fixed;left:0;top:0;width:28px;height:28px;margin:-14px 0 0 -14px;pointer-events:none;z-index:200;transition:width .3s var(--ease),height .3s var(--ease),margin .3s var(--ease)}
+.reticle::before,.reticle::after{content:"";position:absolute;background:var(--accent)}
+.reticle::before{left:50%;top:0;bottom:0;width:1px}
+.reticle::after{top:50%;left:0;right:0;height:1px}
+.reticle.big{width:56px;height:56px;margin:-28px 0 0 -28px}
+@media (hover:none){.reticle{display:none}}
+
+@media (max-width:860px){
+  .links{position:fixed;inset:64px 0 auto 0;flex-direction:column;background:var(--bg);padding:24px 16px;border-bottom:1px solid var(--line);gap:18px;transform:translateY(-130%);transition:transform .5s var(--ease)}
+  .links.open{transform:none}
+  .burger{display:block}
+  .about,.modal .cols{grid-template-columns:1fr}
+  .figs{grid-template-columns:repeat(2,1fr)}.gal{grid-template-columns:repeat(2,1fr)}
+  .doms{grid-template-columns:repeat(2,1fr)}
+  .projects{grid-template-columns:1fr}
+  .hud{display:none}
+  .stat b{font-size:40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.skill{opacity:1;transform:none}.hero h1 .ln>span{transform:none}.hero p,.hero .cta{opacity:1}}
+</style>
+</head>
+<body>
+<div class="reticle" id="reticle"></div>
+
+<nav id="nav">
+  <a href="#top" class="logo">O<span>/</span>SOW</a>
+  <div class="links" id="links">
+    <a href="#apropos">À propos</a>
+    <a href="#competences">Compétences</a>
+    <a href="#projets">Projets</a>
+    <a href="#parcours">Parcours</a>
+    <a href="#contact">Contact</a>
+    <a data-link="cv" target="_blank" rel="noopener" class="nav-cv">CV ↗</a>
+  </div>
+  <button class="burger" id="burger">Menu</button>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="gl"></canvas>
+  <div class="grid-bg"></div>
+  <div class="hud">
+    <div>ESP — DAKAR · SN</div>
+    <div>14.6928° N / 17.4467° W</div>
+    <div>X <em id="hx">000</em> · Y <em id="hy">000</em></div>
+    <div>RPM <em id="rpm">0</em></div>
+  </div>
+  <div class="hero-txt">
+    <div class="eyebrow"><b>●</b>&nbsp; DUT2 — Génie Mécanique &amp; Systèmes Industriels</div>
+    <h1><span class="ln"><span>Ousmane Sow</span></span><span class="ln"><span>Mécanique</span></span></h1>
+    <p>Étudiant à l'École Supérieure Polytechnique de Dakar. Je modélise, je fabrique et je programme des systèmes mécaniques — du modèle 3D à la pièce finie.</p>
+    <div class="cta">
+      <a href="#projets" class="btn">Voir les projets →</a>
+      <a class="btn alt" data-link="cv" target="_blank" rel="noopener">Voir mon CV ↗</a>
+    </div>
+  </div>
+  <div class="scroll-ind">DÉFILER</div>
+</header>
+
+<section id="apropos">
+  <div class="wrap">
+    <div class="head reveal"><h2>À propos</h2><span class="num">01 / 05</span></div>
+    <div class="about">
+      <div class="reveal">
+        <p class="lead">Esprit d'analyse, <mark>pratique d'atelier</mark> et sens du travail en équipe.</p>
+        <div class="stats">
+          <div class="stat"><b data-count="4">0</b><small>Projets</small></div>
+          <div class="stat"><b data-count="7">0</b><small>Logiciels</small></div>
+          <div class="stat"><b data-count="4">0</b><small>Langues</small></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <p>Ce qui me motive, c'est de voir un projet passer de l'écran à l'atelier : concevoir une pièce, la simuler, la fabriquer puis la contrôler. J'aime autant la rigueur du calcul que le concret de l'usinage, et je prends volontiers en main la coordination d'une équipe.</p>
+        <p>Curieux et toujours prêt à apprendre, je cherche une opportunité de mettre cette énergie au service de projets réels.</p>
+        <div class="cartouche">
+          <div><span>NOM</span><strong>Ousmane Sow</strong></div>
+          <div><span>FORMATION</span><strong>DUT GMSI — ESP Dakar (UCAD)</strong></div>
+          <div><span>LOCALISATION</span><strong>Keur Massar, Dakar — Sénégal</strong></div>
+          <div><span>LANGUES</span><strong>Français · Anglais · Wolof · Peulh</strong></div>
+          <div><span>STATUT</span><strong style="color:var(--accent)">Disponible pour un stage</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="competences" style="background:var(--bg-soft)">
+  <div class="wrap">
+    <div class="head reveal"><h2>Compétences</h2><span class="num">02 / 05</span></div>
+    <div class="sk-block reveal"><div class="sk-top"><div class="eyebrow"><b>A</b> — Logiciels &amp; outils</div></div><div class="soft" id="soft"></div></div>
+    <div class="sk-block reveal"><div class="sk-top"><div class="eyebrow"><b>B</b> — Domaines de compétences</div><div class="filters" id="domf"></div></div><div class="doms" id="doms"></div></div>
+  </div>
+</section>
+
+<section id="projets">
+  <div class="wrap">
+    <div class="head reveal"><h2>Projets</h2><div class="filters" id="filters"></div></div>
+    <div class="projects" id="projects"></div>
+  </div>
+</section>
+
+<div class="marquee"><div class="track" id="track"></div></div>
+
+<section id="parcours">
+  <div class="wrap">
+    <div class="head reveal"><h2>Parcours</h2><span class="num">04 / 05</span></div>
+    <div class="timeline" id="timeline"><div class="prog" id="prog"></div></div>
+  </div>
+</section>
+
+<section id="contact" class="contact" style="background:var(--bg-soft)">
+  <div class="wrap reveal">
+    <div class="eyebrow"><b>05 / 05</b> — Travaillons ensemble</div>
+    <h2 style="margin-top:20px"><a href="mailto:sowousmanee2008@gmail.com">Parlons<br>projet.</a></h2>
+    <div class="socials">
+      <a class="btn" href="mailto:sowousmanee2008@gmail.com">sowousmanee2008@gmail.com</a>
+      <a class="btn alt" data-link="cv" target="_blank" rel="noopener">Mon CV ↗</a>
+      <a class="btn alt" data-link="linkedin" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer><span>© 2026 — Ousmane Sow</span><span>ESP Dakar · Génie Mécanique &amp; Systèmes Industriels</span></footer>
+
+<div class="modal" id="modal"><div class="box"><button class="close" id="close">Fermer ✕</button><div id="mbody"></div></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* =====================================================================
+   DONNÉES — à remplacer par les vrais projets / compétences
+   ===================================================================== */
+const LOGOS = {
+  'SolidWorks':`<path fill="#DA291C" d="M21.1854 8.0254c1.064.192 1.9321.34 2.1311.79.223.51-.936.541-1.52.552-2.7992.054-4.4862.11-4.5712 1.061-.11 1.2241 1.196 2.4572 2.486 4.1852 1.1781 1.577 2.5172 3.1351 2.1322 4.5862-.482 1.809-2.6991 2.192-4.8102 2.192-2.0211.001-3.9382-.323-4.7432-.482-1.002-.199-.852-.694-.585-.853.298-.178 2.002-.182 3.187-.252.9751-.058 3.8052-.056 4.2463-.781.54-.889-.783-2.4081-2.0001-4.0002-1.519-1.984-3.1862-4.0341-2.3031-5.5322 1.14-1.936 4.4842-1.803 6.3502-1.466m-13.6905 2.95c1.772-.104 3.9261.206 5.1342 1.1301a2.172 2.172 0 01.78 2.2771c-.698 2.7521-3.3041 6.0833-9.0933 8.6434-1.8411.813-3.2892 1.125-3.5932.906-.326-.234.624-2.052.909-2.6541.9251-1.952 2.0791-3.8532 3.2052-5.5952.414-.64 1.055-1.7521 1.634-1.6621.519.08-.089 1.26-.488 2.011-.672 1.2601-2.523 4.7603-1.912 4.9693 1.35.462 7.6803-4.3542 6.7462-7.0363-.432-1.245-3.1801-1.363-4.9122-1.363-.787 0-2.508.186-2.603-.417-.102-.5561 2.613-1.1161 4.192-1.2101M11.8672.013c2.068-.098 4.5141.342 4.9702 1.8021.747 2.3901-3.0402 5.8772-6.3383 7.5873-.809.42-1.3.536-1.504.507-.195-.027-.225-.221-.162-.355.118-.252.65-.764 1.361-1.322 3.7151-2.9001 4.9232-5.0282 4.2212-5.8903-.45-.552-2.3321-.937-4.2872-.937-.53 0-1.925.123-2.068-.367C7.942.634 9.814.108 11.866.012"/>`,
+  'CATIA V5':`<path fill="#005386" d="M21.1854 8.0254c1.064.192 1.9321.34 2.1311.79.223.51-.936.541-1.52.552-2.7992.054-4.4862.11-4.5712 1.061-.11 1.2241 1.196 2.4572 2.486 4.1852 1.1781 1.577 2.5172 3.1351 2.1322 4.5862-.482 1.809-2.6991 2.192-4.8102 2.192-2.0211.001-3.9382-.323-4.7432-.482-1.002-.199-.852-.694-.585-.853.298-.178 2.002-.182 3.187-.252.9751-.058 3.8052-.056 4.2463-.781.54-.889-.783-2.4081-2.0001-4.0002-1.519-1.984-3.1862-4.0341-2.3031-5.5322 1.14-1.936 4.4842-1.803 6.3502-1.466m-13.6905 2.95c1.772-.104 3.9261.206 5.1342 1.1301a2.172 2.172 0 01.78 2.2771c-.698 2.7521-3.3041 6.0833-9.0933 8.6434-1.8411.813-3.2892 1.125-3.5932.906-.326-.234.624-2.052.909-2.6541.9251-1.952 2.0791-3.8532 3.2052-5.5952.414-.64 1.055-1.7521 1.634-1.6621.519.08-.089 1.26-.488 2.011-.672 1.2601-2.523 4.7603-1.912 4.9693 1.35.462 7.6803-4.3542 6.7462-7.0363-.432-1.245-3.1801-1.363-4.9122-1.363-.787 0-2.508.186-2.603-.417-.102-.5561 2.613-1.1161 4.192-1.2101M11.8672.013c2.068-.098 4.5141.342 4.9702 1.8021.747 2.3901-3.0402 5.8772-6.3383 7.5873-.809.42-1.3.536-1.504.507-.195-.027-.225-.221-.162-.355.118-.252.65-.764 1.361-1.322 3.7151-2.9001 4.9232-5.0282 4.2212-5.8903-.45-.552-2.3321-.937-4.2872-.937-.53 0-1.925.123-2.068-.367C7.942.634 9.814.108 11.866.012"/>`,
+  'Fusion 360':`<rect x="2" y="2" width="20" height="20" rx="4" fill="#F26B1D"/><path fill="#fff" d="M7 6h10.5l-1.4 2.8H10v2.6h5l-1.4 2.8H10V18H7z"/>`,
+  'KiCad':`<path fill="#314CB0" d="M7.4668 7.3039c-.472.0238-.8477.4142-.8477.8906 0 .4918.3994.8906.8926.8906.4933 0 .8926-.3988.8926-.8906 0-.4918-.3993-.8906-.8926-.8906-.0154 0-.0297-.0008-.0449 0zM.25 8.0109c-.1394 0-.25.1214-.25.254v8.1777c0 .1325.1106.2539.25.2539h8.5215c.1394 0 .248-.1214.248-.254V8.2649c0-.1327-.1083-.2539-.248-.2539h-.2598c.011.0595.0176.121.0176.1836 0 .0605-.0054.1201-.0156.1777h.1445v7.963H.3613v-7.963h6.1485a1.0179 1.0179 0 0 1-.0157-.1777c0-.0628.0066-.1238.0176-.1836zm.2617.5117v7.664h7.9961v-7.664h-.0332a1.025 1.025 0 0 1-.4883.5703.8482.8482 0 0 1-.4746.1426.8483.8483 0 0 1-.4746-.1426 1.025 1.025 0 0 1-.4883-.5703zm21.5606.252c.0966.1084.1562.2266.1797.3555.0116.0615.0175.1992.0175.4101v1.664c-.2753-.2606-.6554-.3906-1.1386-.3906-.3662 0-.6896.1007-.9707.3028-.5946.4276-.8926 1.2249-.8926 2.3906 0 .3515.0469.67.1406.957.1347.41.3487.7335.6387.9707.3075.252.669.379 1.0879.379.495 0 .9034-.1574 1.2226-.4708v.373H24c-.1347-.1492-.2012-.4072-.2012-.7733v-6.168Zm-9.6328.2988c-.785 0-1.463.2873-2.0372.8613-.6209.621-.9316 1.4593-.9316 2.5137 0 .9402.253 1.7238.7598 2.3535.5447.6795 1.2746 1.0196 2.1914 1.0196.577 0 1.0987-.131 1.5644-.3946.2636-.1494.414-.22.4492-.211l-.7304-1.1952c-.3456.3807-.7404.5703-1.1856.5703-.249 0-.4834-.0782-.703-.2363-.4717-.3398-.7071-.9749-.7071-1.9063 0-.328.0322-.628.0996-.9004.205-.8318.6447-1.248 1.3183-1.248.4306 0 .7755.1641 1.0332.4922l.7872-1.1426c-.085-.009-.1964-.0508-.334-.127-.536-.2987-1.0617-.4492-1.5742-.4492zM.5605 9.175H2.625c-.164.164-.2461.4474-.246.8515v1.6133l1.2616-1.5957c.2578-.325.3867-.5674.3867-.7285 0-.0585-.0088-.1054-.0234-.1406h2.2012c-.167.0937-.375.2901-.627.5918-.0673.079-.1856.2247-.3554.4355L3.5703 12.259l1.9727 2.7148c.12.164.2725.3497.457.5547.0498.0527.1211.1144.2148.1875H3.957a.7156.7156 0 0 0 .0254-.1797c0-.1611-.1114-.3946-.334-.6992L2.379 13.1066v1.754c0 .407.082.6914.2461.8554H.5605c.1143-.1142.1866-.2442.2188-.3906.0175-.082.0273-.2355.0273-.461v-4.8379c0-.2255-.0098-.3789-.0273-.4609-.0322-.1464-.1045-.2764-.2188-.3906zm16.2032 1.6386c-.2373 0-.4561.0195-.6582.0605l-.5977.1504c-.2812.0703-.4717.1055-.5683.1055l.4355 1.0488c.41-.2167.8019-.3242 1.1738-.3242.4364 0 .6543.2511.6543.752-.2167-.0116-.3691-.0176-.457-.0176-.618 0-1.0987.083-1.4414.25-.5946.29-.8906.7384-.8906 1.3476 0 .2666.0469.506.1406.7168.1318.2959.3409.5244.6308.6856.2754.1522.5831.2276.92.2246.4745-.006.8623-.1632 1.164-.4707v.373h1.6387c-.0996-.1083-.1621-.2276-.1855-.3594-.0117-.0644-.0176-.2031-.0176-.414V12.794c0-.4305-.0587-.791-.1758-1.084-.2402-.5974-.8284-.8964-1.7656-.8964zm-10.211.0957h1.7266v4.0332c0 .211.0059.3497.0176.4141.0234.1318.086.251.1855.3594H6.5488c.0996-.1083.1602-.2276.1836-.3594.0117-.0644.0176-.2032.0176-.414V11.675c0-.2109-.0059-.3467-.0176-.4082-.0234-.1289-.083-.249-.1797-.3574zM21.623 11.929c.2373 0 .4532.082.6465.246v2.1934c-.2284.1845-.4668.2754-.7129.2754-.4715 0-.707-.4025-.707-1.211 0-1.0016.258-1.5038.7734-1.5038zm-4.793 1.6484c.123 0 .2403.009.3516.0293v.7617c-.1464.252-.38.377-.6992.377-.1728 0-.3154-.046-.4297-.1367-.126-.0996-.1894-.2315-.1894-.3985 0-.2226.1114-.3906.334-.502.1757-.0878.3867-.1308.6328-.1308z"/>`,
+  'Arduino IDE':`<path fill="#00878F" d="M18.087 6.146c-.3 0-.607.017-.907.069-2.532.367-4.23 2.239-5.18 3.674-.95-1.435-2.648-3.307-5.18-3.674a6.49 6.49 0 0 0-.907-.069C2.648 6.146 0 8.77 0 12s2.656 5.854 5.913 5.854c.3 0 .607-.017.916-.069 2.531-.376 4.23-2.247 5.18-3.683.949 1.436 2.647 3.307 5.18 3.683.299.043.607.069.915.069C21.344 17.854 24 15.23 24 12s-2.656-5.854-5.913-5.854zM6.53 15.734a3.837 3.837 0 0 1-.625.043c-2.148 0-3.889-1.7-3.889-3.777 0-2.085 1.749-3.777 3.898-3.777.208 0 .416.017.624.043 2.39.35 3.847 2.768 4.347 3.734-.508.974-1.974 3.384-4.355 3.734zm11.558.043c-.208 0-.416-.017-.624-.043-2.39-.35-3.856-2.768-4.347-3.734.491-.966 1.957-3.384 4.347-3.734.208-.026.416-.043.624-.043 2.149 0 3.89 1.7 3.89 3.777 0 2.085-1.75 3.777-3.89 3.777zm1.65-4.404v1.134h-1.205v1.182h-1.156v-1.182H16.17v-1.134h1.206V10.19h1.156v1.183h1.206zM4.246 12.498H7.82v-1.125H4.245v1.125z"/>`,
+  'Python':`<path fill="#3776AB" d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/>`,
+  'MATLAB':`<path fill="#0076A8" d="M1 14.5l6.6-3.1 2.6 2.1-3 3.4z"/><path fill="#E16737" d="M7.6 11.4l2.6 2.1L15 2.6c1.7 2.7 4.6 9.3 8 13.6l-6.9 5.2c-2-4.4-3.6-7.6-5.9-7.9-1.6 1.7-2.9 2.5-4 2.4z"/><path fill="#BF4A1C" d="M15 2.6c-1.8 2.1-3.1 5.4-4.8 10.9 2.3.3 3.9 3.5 5.9 7.9l1-.8C15.3 14 15.6 7 15 2.6z"/>`
+};
+
+// Liens externes : coller l'adresse entre les guillemets (vide = bouton grisé « bientôt »)
+const LINKS = {
+  cv: "cv-ousmane-sow.pdf",
+  linkedin: ""   // ex. "https://www.linkedin.com/in/..."
+};
+document.querySelectorAll("[data-link]").forEach(a=>{const u=LINKS[a.dataset.link];
+  if(u)a.href=u;else{a.classList.add("soon");a.removeAttribute("target");a.addEventListener("click",e=>e.preventDefault())}});
+
+const SOFTWARE = [
+  ["SolidWorks","CAO & simulation"],["CATIA V5","CAO avancée"],["Fusion 360","CAO & FAO"],["KiCad","CAO électronique"],["Arduino IDE","Programmation"],
+  ["Python","Calcul scientifique"],["MATLAB","Analyse numérique"]
+];
+
+// [domaine, famille, description courte]
+const DOMAINS = [
+  ["Conception & modélisation 3D","Conception","Pièces et assemblages modélisés en volumique."],
+  ["Simulation mécanique","Conception","Vérifier un comportement avant de fabriquer."],
+  ["Dimensionnement","Conception","Choisir et calculer les éléments d'une liaison ou d'une structure."],
+  ["Fabrication & usinage","Atelier","Tournage, fraisage et préparation de la fabrication."],
+  ["Contrôle & métrologie","Atelier","Mesurer, vérifier les cotes et les tolérances."],
+  ["Maintenance industrielle","Atelier","Préventive et corrective sur équipements."],
+  ["Codage","Numérique","Programmes pour piloter un système ou automatiser un calcul."],
+  ["Électronique & circuits","Numérique","Schémas et cartes électroniques."],
+  ["Analyse de données numériques","Numérique","Traiter des mesures, tracer et interpréter des courbes."],
+  ["Pneumatique & hydraulique","Atelier","Lire et interpréter des circuits de puissance fluidique."],
+  ["Machines électriques","Atelier","Moteurs, transformateurs et leur mise en œuvre."],
+  ["Sécurité au travail","Gestion","Appliquer les règles en atelier et en laboratoire."],
+  ["Gestion d'équipe","Gestion","Coordonner un groupe autour d'un objectif commun."]
+];
+
+// visual: "curve" | "lathe" | "arm" | "gear" ... — ou une photo : "img/projet.jpg"
+// role / duration / team : laisser "" pour masquer le champ
+const PROJECTS = [
+  {title:"Réducteur roue et vis sans fin",cat:"Conception",year:"2026",visual:"img/reducteur-cover.jpg",
+   desc:"Analyse complète d'un réducteur à forte démultiplication entre deux axes perpendiculaires : fonctionnement, analyse fonctionnelle, modélisation 3D de chaque pièce et étude des liaisons.",
+   tags:["SolidWorks","Analyse fonctionnelle","Mise en plan","Liaisons"],
+   figures:[["1/84","Rapport de réduction"],["Z 84","Dents de la roue"],["m 2","Module"],["10","Pièces modélisées"]],
+   details:["Étude du principe de fonctionnement et de la cinématique","Analyse fonctionnelle : bête à cornes, FAST, SADT","Modélisation 3D de toutes les pièces et assemblage complet","Dessins de définition (arbre, carter, coussinet, roulements)","Modélisation des liaisons et des efforts transmis","Notices de démontage / remontage et diagramme d'Ishikawa"],
+   gallery:[["img/reducteur-assemblage.jpg","Assemblage complet sous SolidWorks"],["img/reducteur-roue-vis.jpg","Engrènement roue et vis sans fin"],["img/reducteur-fast.jpg","Analyse FAST"],["img/reducteur-sadt.jpg","Diagramme SADT"],["img/reducteur-bete-a-corne.jpg","Bête à cornes"],["img/reducteur-chaine.jpg","Chaîne cinématique"],["img/reducteur-arbre.jpg","Dessin de définition — arbre de sortie"],["img/reducteur-carter.jpg","Dessin de définition — carter"],["img/reducteur-coussinet.jpg","Dessin de définition — coussinet"],["img/reducteur-roulement.jpg","Roulement"],["img/reducteur-ishikawa.jpg","Diagramme d'Ishikawa"]],
+   role:"Analyse & modélisation", duration:"", team:"Binôme"},
+  {title:"Essai de traction — Al 6061-T6",cat:"Matériaux",year:"2026",visual:"img/traction-von-mises.jpg",
+   desc:"Pourquoi des arbres en aluminium cassent-ils en service ? Caractérisation d'un alliage 6061-T6 par essai de traction, puis comparaison avec une simulation par éléments finis.",
+   tags:["Essai mécanique","Excel","Simulation EF","SolidWorks"],
+   figures:[["274,5 MPa","Limite d'élasticité"],["317,7 MPa","Résistance maximale"],["≈ 18 %","Allongement à la rupture"],["0,18 %","Écart essai / simulation"]],
+   details:["Coordination de l'équipe et organisation du travail","Recherche documentaire : composition et traitements thermiques (O, T4, T6)","Traitement des mesures et tracé de la courbe contrainte–déformation","Calcul des caractéristiques mécaniques (Re, Rm, E, A, énergie)","Simulation non linéaire de l'éprouvette : contraintes, déformations, déplacements","Comparaison et interprétation des écarts essai / simulation"],
+   gallery:[["img/traction-von-mises.jpg","Contraintes de von Mises"],["img/traction-deformations.jpg","Déformations équivalentes"],["img/traction-deplacements.jpg","Déplacements résultants"],["img/traction-modele.jpg","Modèle 3D de l'éprouvette"],["img/traction-eprouvette.jpg","Éprouvette normalisée ASTM E8"],["img/traction-machine.jpg","Machine d'essai de traction"]],
+   role:"Chef d'équipe", duration:"", team:"Équipe"},
+  {title:"Tourne-à-gauche",cat:"Fabrication",year:"2026",visual:"lathe",
+   desc:"Fabrication complète d'un outil d'atelier, de la lecture du plan au contrôle final.",
+   tags:["Tournage","Fraisage","Métrologie"],
+   details:["Préparation de la gamme de fabrication","Usinage au tour et à la fraiseuse","Contrôle des cotes et des tolérances"],
+   role:"Fabrication", duration:"", team:""},
+  {title:"Bras robotique 3 axes",cat:"Robotique",year:"2026",visual:"arm",
+   desc:"Conception d'un bras articulé à trois degrés de liberté, piloté par microcontrôleur.",
+   tags:["SolidWorks","KiCad","Arduino"],
+   details:["Modélisation et simulation des pièces","Conception du circuit électronique","Codage du pilotage des moteurs"],
+   role:"Conception & codage", duration:"", team:""}
+];
+
+const TIMELINE = [
+  ["2025 — 2027","DUT Génie Mécanique & Systèmes Industriels","École Supérieure Polytechnique de Dakar — conception, fabrication, électronique, maintenance."],
+  ["En continu","Certifications en ligne","Programmation Python (Harvard CS50P, en cours) · Elements of AI (Université d'Helsinki)."],
+  ["2024 — 2025","Baccalauréat série S1","Collège Notre Dame du Liban — mention Assez-Bien."]
+];
+
+const TOOLS = ["Conception","Simulation","Usinage","Codage","Électronique","Analyse de données","Maintenance"];
+
+/* =====================================================================
+   Visuels techniques en SVG (traits fins, style plan)
+   ===================================================================== */
+function vis(type){
+  const s='stroke="#1a1a1a" fill="none" stroke-width="1"', a='stroke="#e8501a" fill="none" stroke-width="1"', d='stroke="#b9b4aa" stroke-dasharray="4 4" fill="none"';
+  const gear=(cx,cy,r,n,rot)=>{let p="";for(let i=0;i<n*2;i++){const ang=(i/(n*2))*Math.PI*2,rr=i%2?r:r+8,ang2=((i+1)/(n*2))*Math.PI*2;p+=`${i?"L":"M"}${cx+rr*Math.cos(ang)} ${cy+rr*Math.sin(ang)}L${cx+rr*Math.cos(ang2)} ${cy+rr*Math.sin(ang2)}`}return `<g class="spin" style="transform-origin:${cx}px ${cy}px;animation:sp ${n}s linear infinite ${rot?"reverse":""}"><path d="${p}Z" ${s}/><circle cx="${cx}" cy="${cy}" r="${r*.35}" ${s}/></g>`};
+  const map={
+    gear:gear(170,160,70,18,0)+gear(296,160,46,12,1)+`<line x1="60" y1="160" x2="400" y2="160" ${d}/><line x1="170" y1="260" x2="296" y2="260" ${a}/><text x="214" y="276" fill="#e8501a" font-family="monospace" font-size="10">a = 126</text>`,
+    cnc:`<path d="M70 200h60v-40h90v-20h80v20h50v40h40" ${s}/><path d="M70 200h320" ${d}/><path d="M70 200v-0M130 200v-40" ${s}/><g style="animation:tool 3s ease-in-out infinite alternate"><path d="M300 90l20 40h-40z" ${a}/></g><text x="70" y="240" fill="#7a776f" font-family="monospace" font-size="10">Ø40 · Ø60 · Ø50 · L=320</text>`,
+    plc:`<rect x="60" y="80" width="120" height="140" ${s}/><g fill="#e8501a">${[0,1,2,3,4].map(i=>`<circle cx="80" cy="${100+i*22}" r="3" style="animation:blink 1.${i}s infinite"/>`).join("")}</g><rect x="230" y="130" width="140" height="40" ${s}/><rect x="250" y="140" width="${60}" height="20" ${a} style="animation:ram 2s ease-in-out infinite alternate"/><path d="M180 150h50" ${d}/>`,
+    beam:`<path d="M80 230V90h300v140" ${s}/><path d="M80 90l40 30M380 90l-40 30" ${s}/><path d="M230 90v50" ${a}/><path d="M220 140h20l-10 14z" fill="#e8501a"/><path d="M80 90 Q230 ${120} 380 90" ${d}/><text x="236" y="80" fill="#e8501a" font-family="monospace" font-size="10">F = 5 kN</text>`,
+    frame:`<path d="M90 220l60-40h220l-60 40z M90 220v-110l60-40v110 M150 70h220v110 M310 220v-110l60-40 M90 110h220l60-40" ${s}/><path d="M90 110h220v110" ${d}/><circle cx="150" cy="180" r="4" fill="#e8501a"/><circle cx="310" cy="110" r="4" fill="#e8501a"/>`,
+    curve:`<path d="M70 240H400M70 240V60" ${s}/><path d="M70 240 L150 110 Q190 92 240 96 Q320 104 350 140 L362 170" ${a} stroke-dasharray="460" style="animation:draw 3s ease-out infinite"/><path d="M150 110V240" ${d}/><text x="76" y="56" fill="#7a776f" font-family="monospace" font-size="10">σ (MPa)</text><text x="372" y="256" fill="#7a776f" font-family="monospace" font-size="10">ε</text><text x="156" y="104" fill="#e8501a" font-family="monospace" font-size="10">Re</text>`,
+    lathe:`<path d="M80 150h40v-28h150v28h20v-14h70v28h-70v-14h-20v28H120v-28H80" ${s}/><path d="M60 150h360" ${d}/><path d="M140 122l6 28-6 28M156 122l6 28-6 28M172 122l6 28-6 28M188 122l6 28-6 28" stroke="#b9b4aa" fill="none"/><g style="animation:tool 3s ease-in-out infinite alternate"><path d="M300 92l14 26h-28z" ${a}/></g><text x="80" y="230" fill="#7a776f" font-family="monospace" font-size="10">chariotage · moletage · filetage</text>`,
+    arm:`<path d="M150 250h160M190 250v-30h80v30" ${s}/><g style="transform-origin:230px 220px;animation:j1 4s ease-in-out infinite alternate"><path d="M230 220L180 130" ${s} stroke-width="6" stroke-linecap="round"/><circle cx="230" cy="220" r="9" ${a}/><g style="transform-origin:180px 130px;animation:j2 3s ease-in-out infinite alternate"><path d="M180 130L270 90" ${s} stroke-width="5" stroke-linecap="round"/><circle cx="180" cy="130" r="8" ${a}/><path d="M270 90l16-10M270 90l16 10" ${a} stroke-width="2"/></g></g>`,
+    piston:`<rect x="190" y="60" width="80" height="170" ${s}/><g style="animation:pist 1.2s ease-in-out infinite alternate"><rect x="196" y="90" width="68" height="40" ${a}/><path d="M230 130v70" ${s}/></g><circle cx="230" cy="240" r="30" ${d}/>`
+  };
+  return `<svg viewBox="0 0 460 300" preserveAspectRatio="xMidYMid meet"><defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" stroke="#ece9e2" fill="none"/></pattern></defs><rect width="460" height="300" fill="url(#g)"/>${map[type]||map.gear}</svg>`;
+}
+const css=document.createElement("style");
+css.textContent="@keyframes sp{to{transform:rotate(360deg)}}@keyframes tool{to{transform:translateX(-200px)}}@keyframes blink{50%{opacity:.15}}@keyframes ram{to{transform:translateX(70px)}}@keyframes pist{to{transform:translateY(60px)}}@keyframes draw{from{stroke-dashoffset:460}to{stroke-dashoffset:0}}@keyframes j1{from{transform:rotate(-8deg)}to{transform:rotate(14deg)}}@keyframes j2{from{transform:rotate(-20deg)}to{transform:rotate(18deg)}}";
+document.head.appendChild(css);
+const visual=p=>/\.(jpe?g|png|webp|gif)$/i.test(p.visual)?`<img src="${p.visual}" alt="${p.title}" loading="lazy">`:vis(p.visual);
+
+/* =====================================================================
+   Rendu
+   ===================================================================== */
+const $=s=>document.querySelector(s);
+
+// Compétences
+$("#soft").innerHTML=SOFTWARE.map(([n,d],i)=>`<div class="sw" style="transition-delay:${i*80}ms"><div class="mono"><svg viewBox="0 0 24 24" aria-label="${n}">${LOGOS[n]||""}</svg></div><b>${n}</b><small>${d}</small><i class="fill"></i></div>`).join("");
+$("#doms").innerHTML=DOMAINS.map(([d,f,x],i)=>`<div class="dom" data-f="${f}" style="transition-delay:${i*55}ms"><em><span style="font:inherit;margin:0;letter-spacing:0">${String(i+1).padStart(2,"0")}</span>${f}</em><div><span>${d}</span><p>${x}</p></div></div>`).join("");
+const domf=$("#domf");
+domf.innerHTML=["Tous",...new Set(DOMAINS.map(d=>d[1]))].map((c,i)=>`<button class="tab ${i?"":"on"}" data-f="${c}">${c}</button>`).join("");
+domf.onclick=e=>{const f=e.target.dataset.f;if(!f)return;
+  [...domf.children].forEach(b=>b.classList.toggle("on",b.dataset.f===f));
+  document.querySelectorAll(".dom").forEach(d=>{const m=f==="Tous"||d.dataset.f===f;d.style.transitionDelay="0ms";d.classList.toggle("dim",!m);d.classList.toggle("hit",m&&f!=="Tous")})};
+// inclinaison 3D au survol (logiciels + domaines)
+document.querySelectorAll(".sw,.dom").forEach(el=>{
+  el.addEventListener("mousemove",e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    el.style.transitionDelay="0ms";el.style.transform=`rotateY(${(x-.5)*14}deg) rotateX(${(.5-y)*14}deg) translateZ(10px)`;el.style.setProperty("--gx",x*100+"%");el.style.setProperty("--gy",y*100+"%")});
+  el.addEventListener("mouseleave",()=>el.style.transform="");
+});
+
+// Projets
+const grid=$("#projects"), filters=$("#filters");
+grid.innerHTML=PROJECTS.map((p,i)=>`<article class="card" data-cat="${p.cat}" data-i="${i}"><div class="vis">${visual(p)}</div><div class="body"><div class="meta"><b>${String(i+1).padStart(2,"0")} — ${p.cat}</b><span>${p.year}</span></div><h3>${p.title}</h3><p>${p.desc}</p><div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join("")}</div></div><div class="glare"></div></article>`).join("")
+  +`<p class="placeholder-note" style="grid-column:1/-1">// Photos du tourne-à-gauche et du bras robotique à venir.</p>`;
+filters.innerHTML=["Tous",...new Set(PROJECTS.map(p=>p.cat))].map((c,i)=>`<button class="tab ${i?"":"on"}" data-f="${c}">${c}</button>`).join("");
+filters.onclick=e=>{const f=e.target.dataset.f;if(!f)return;
+  [...filters.children].forEach(b=>b.classList.toggle("on",b.dataset.f===f));
+  grid.querySelectorAll(".card").forEach(c=>{const show=f==="Tous"||c.dataset.cat===f;c.classList.toggle("hide",!show);if(show){c.animate([{opacity:0,transform:"translateY(20px)"},{opacity:1,transform:"none"}],{duration:600,easing:"cubic-bezier(.22,1,.36,1)"})}})};
+
+// Inclinaison 3D des cartes
+grid.querySelectorAll(".card").forEach(c=>{
+  c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    c.style.transform=`rotateY(${(x-.5)*10}deg) rotateX(${(.5-y)*10}deg) translateZ(0)`;c.style.setProperty("--gx",x*100+"%");c.style.setProperty("--gy",y*100+"%")});
+  c.addEventListener("mouseleave",()=>c.style.transform="");
+  c.addEventListener("click",()=>openModal(PROJECTS[c.dataset.i],+c.dataset.i));
+});
+
+// Modale
+const modal=$("#modal");
+function openModal(p,i){
+  $("#mbody").innerHTML=`<div class="vis">${visual(p)}</div><div class="in"><div class="eyebrow"><b>${String(i+1).padStart(2,"0")}</b> — ${p.cat} · ${p.year}</div><h3>${p.title}</h3><p style="color:var(--ink-2)">${p.desc}</p>${p.figures?`<div class="figs">${p.figures.map(([v,l])=>`<div><b>${v}</b><small>${l}</small></div>`).join("")}</div>`:""}<div class="cols"><div><div class="eyebrow" style="margin-bottom:8px">Réalisations</div><ul>${p.details.map(d=>`<li>${d}</li>`).join("")}</ul></div><div class="cartouche" style="margin:0">${[["RÔLE",p.role],["DURÉE",p.duration],["ÉQUIPE",p.team]].filter(x=>x[1]).map(([k,v])=>`<div><span>${k}</span><strong>${v}</strong></div>`).join("")}</div></div><div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join("")}</div>${p.gallery?`<div class="eyebrow" style="margin-top:36px">Galerie — ${p.gallery.length} visuels</div><div class="gal">${p.gallery.map(([src,c],k)=>`<figure data-k="${k}"><img src="${src}" alt="${c}" loading="lazy"><figcaption>${c}</figcaption></figure>`).join("")}</div>`:""}</div>`;
+  $("#mbody").querySelectorAll(".gal figure").forEach(f=>f.onclick=()=>openLb(p.gallery,+f.dataset.k));
+  modal.classList.add("open");document.body.style.overflow="hidden";
+}
+// Visionneuse
+const lb=document.createElement("div");lb.className="lb";lb.innerHTML='<button class="prev" aria-label="Précédent">←</button><div style="text-align:center"><img alt=""><p></p></div><button class="next" aria-label="Suivant">→</button>';document.body.appendChild(lb);
+let lbSet=[],lbK=0;
+function showLb(){const [src,c]=lbSet[lbK];lb.querySelector("img").src=src;lb.querySelector("p").textContent=`${lbK+1} / ${lbSet.length} — ${c}`}
+function openLb(set,k){lbSet=set;lbK=k;showLb();lb.classList.add("open")}
+lb.onclick=e=>{if(e.target.closest(".prev")){lbK=(lbK-1+lbSet.length)%lbSet.length;showLb()}else if(e.target.closest(".next")){lbK=(lbK+1)%lbSet.length;showLb()}else lb.classList.remove("open")};
+addEventListener("keydown",e=>{if(!lb.classList.contains("open"))return;if(e.key==="ArrowRight"){lbK=(lbK+1)%lbSet.length;showLb()}if(e.key==="ArrowLeft"){lbK=(lbK-1+lbSet.length)%lbSet.length;showLb()}});
+const closeModal=()=>{modal.classList.remove("open");document.body.style.overflow=""};
+$("#close").onclick=closeModal;modal.onclick=e=>e.target===modal&&closeModal();
+addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(lb.classList.contains("open"))lb.classList.remove("open");else closeModal()});
+
+// Parcours & outils
+$("#timeline").insertAdjacentHTML("beforeend",TIMELINE.map(([d,t,x])=>`<div class="step reveal"><div class="date">${d}</div><h3>${t}</h3><p>${x}</p></div>`).join(""));
+$("#track").innerHTML=[...TOOLS,...TOOLS].map(t=>`<span>${t} ✦</span>`).join("");
+
+/* =====================================================================
+   Interactions globales
+   ===================================================================== */
+// Apparitions au scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add("in");
+  e.target.querySelectorAll("[data-count]").forEach(n=>{const t=+n.dataset.count,st=performance.now();(function f(now){const k=Math.min((now-st)/1200,1);n.textContent=Math.round(t*(1-Math.pow(1-k,3)));k<1&&requestAnimationFrame(f)})(st)});
+  io.unobserve(e.target)}),{threshold:.15});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+// Nav : fond au scroll, lien actif, progression timeline
+const nav=$("#nav"), navLinks=[...document.querySelectorAll(".links a")];
+addEventListener("scroll",()=>{
+  nav.classList.toggle("solid",scrollY>40);
+  let cur="";document.querySelectorAll("section[id]").forEach(s=>{if(s.getBoundingClientRect().top<innerHeight*.4)cur=s.id});
+  navLinks.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+cur));
+  const tl=$("#timeline").getBoundingClientRect();$("#prog").style.height=Math.max(0,Math.min(tl.height,innerHeight*.6-tl.top))+"px";
+},{passive:true});
+$("#burger").onclick=()=>$("#links").classList.toggle("open");
+navLinks.forEach(a=>a.onclick=()=>$("#links").classList.remove("open"));
+
+// Curseur réticule + HUD
+const ret=$("#reticle");let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY;$("#hx").textContent=String(mx).padStart(3,"0");$("#hy").textContent=String(my).padStart(3,"0")});
+document.addEventListener("mouseover",e=>ret.classList.toggle("big",!!e.target.closest("a,button,.card")));
+(function loop(){rx+=(mx-rx)*.2;ry+=(my-ry)*.2;ret.style.transform=`translate(${rx}px,${ry}px)`;requestAnimationFrame(loop)})();
+
+/* =====================================================================
+   Scène 3D — train d'engrenages réel (Three.js)
+   ===================================================================== */
+(function(){
+  if(!window.THREE)return;
+  const cv=$("#gl"), R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,2));
+  const S=new THREE.Scene(), C=new THREE.PerspectiveCamera(35,1,.1,100);
+  C.position.set(0,0,30);
+
+  function gearShape(teeth,rp,module){
+    const ra=rp+module, rf=rp-1.25*module, sh=new THREE.Shape(), step=Math.PI*2/teeth;
+    for(let i=0;i<teeth;i++){const a=i*step,pts=[[rf,a],[rf,a+step*.18],[ra,a+step*.32],[ra,a+step*.5],[rf,a+step*.64],[rf,a+step]];
+      pts.forEach(([r,t],k)=>{const x=r*Math.cos(t),y=r*Math.sin(t);(i===0&&k===0)?sh.moveTo(x,y):sh.lineTo(x,y)})}
+    const hole=new THREE.Path();hole.absarc(0,0,rp*.22,0,Math.PI*2,true);sh.holes.push(hole);
+    // allègements
+    if(teeth>14)for(let i=0;i<5;i++){const h=new THREE.Path(),a=i*Math.PI*2/5;h.absarc(Math.cos(a)*rp*.58,Math.sin(a)*rp*.58,rp*.17,0,Math.PI*2,true);sh.holes.push(h)}
+    return sh;
+  }
+  const metal=new THREE.MeshStandardMaterial({color:0x8f959d,metalness:.45,roughness:.55});
+  const accentM=new THREE.MeshStandardMaterial({color:0xe8501a,metalness:.4,roughness:.4});
+  const edgeM=new THREE.LineBasicMaterial({color:0x141414,transparent:true,opacity:.28});
+  const assembly=new THREE.Group();S.add(assembly);
+  const m=.25;
+  function makeGear(teeth,depth,mat){
+    const rp=teeth*m/2, g=new THREE.ExtrudeGeometry(gearShape(teeth,rp,m),{depth,bevelEnabled:true,bevelThickness:.04,bevelSize:.03,bevelSegments:2,curveSegments:24});
+    g.translate(0,0,-depth/2);
+    const mesh=new THREE.Mesh(g,mat);mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(g,25),edgeM));
+    const grp=new THREE.Group();grp.add(mesh);grp.userData={teeth,rp};return grp;
+  }
+  const g1=makeGear(32,.7,metal), g2=makeGear(16,.9,accentM), g3=makeGear(24,.6,metal);
+  g1.position.set(0,0,0);
+  g2.position.set(g1.userData.rp+g2.userData.rp,0,0);
+  const ang=-Math.PI/3; g3.position.set(Math.cos(ang)*(g1.userData.rp+g3.userData.rp),Math.sin(ang)*(g1.userData.rp+g3.userData.rp),0);
+  // décalage de phase pour un engrènement propre
+  g2.children[0].rotation.z=Math.PI/16; g3.children[0].rotation.z=Math.PI/24*0.5;
+  // arbres
+  const shaftM=new THREE.MeshStandardMaterial({color:0x6d7178,metalness:.9,roughness:.25});
+  [g1,g2,g3].forEach(g=>{const s=new THREE.Mesh(new THREE.CylinderGeometry(g.userData.rp*.21,g.userData.rp*.21,3,32),shaftM);s.rotation.x=Math.PI/2;g.add(s)});
+  assembly.add(g1,g2,g3);
+  assembly.position.set(2.5,.6,0);
+
+  S.add(new THREE.AmbientLight(0xffffff,.55));
+  const key=new THREE.DirectionalLight(0xffffff,.85);key.position.set(5,6,8);S.add(key);
+  const rim=new THREE.PointLight(0xffb08a,.5,40);rim.position.set(-10,-6,10);S.add(rim);
+  const back=new THREE.DirectionalLight(0x8899ff,.4);back.position.set(-4,4,-6);S.add(back);
+
+  function size(){const w=cv.clientWidth,h=cv.clientHeight;R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix();
+    const narrow=w<860;assembly.position.set(narrow?0:5.5,narrow?3.5:.4,0);assembly.scale.setScalar(narrow?.75:1)}
+  addEventListener("resize",size);size();
+
+  let tx=0,ty=0,cx=0,cy=0,speed=1,boost=0;
+  addEventListener("mousemove",e=>{tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5)});
+  cv.parentElement.addEventListener("mousedown",()=>boost=1);
+  addEventListener("mouseup",()=>boost=0);
+  let t=0,last=performance.now(),visible=true;
+  new IntersectionObserver(([e])=>visible=e.isIntersecting).observe(cv);
+  (function frame(now){
+    requestAnimationFrame(frame);
+    const dt=Math.min((now-last)/1000,.05);last=now;if(!visible)return;
+    speed+=((boost?6:1)-speed)*.05;
+    t+=dt*.4*speed;
+    const w1=t;
+    g1.rotation.z=w1;
+    g2.rotation.z=-w1*g1.userData.teeth/g2.userData.teeth;
+    g3.rotation.z=-w1*g1.userData.teeth/g3.userData.teeth;
+    cx+=(tx-cx)*.05;cy+=(ty-cy)*.05;
+    const sc=Math.min(scrollY/innerHeight,1);
+    assembly.rotation.y=-.55+cx*.6+sc*.8;
+    assembly.rotation.x=.35+cy*.4-sc*.3;
+    C.position.z=30+sc*8;
+    $("#rpm").textContent=Math.round(speed*24);
+    R.render(S,C);
+  })(last);
+})();
+</script>
+</body>
+</html>
